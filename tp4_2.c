@@ -11,8 +11,9 @@ struct{
 void cargarTareas(Tarea **lista, int cant);
 void listadoRealizadas(Tarea **pen, Tarea **real, int cant);
 void mostrarRealizadas(Tarea ** real, int cant);
-Tarea buscarTareaPorId();
-Tarea buscarTareaPorPalabra();
+void mostrarPendientes(Tarea ** pend, int cant);
+Tarea buscarTareaPorId(Tarea ** real, Tarea ** pen, int id);
+Tarea buscarTareaPorPalabra(Tarea ** real, Tarea ** pen, int id);
 
 int main(){
     int cant;
@@ -78,6 +79,20 @@ void mostrarRealizadas(Tarea ** real, int cant){
             printf("Tarea ID: %d\n", real[i]->TareaId);
             printf("Descripcion: %s\n", real[i]->Descripcion);
             printf("Duracion: %d\n", real[i]->Duracion);
+            printf("===================\n");
+        }
+    }
+}
+
+void mostrarPendientes(Tarea ** pend, int cant){
+    printf("\n=============== Tareas pendientes ===============\n");
+    for (int i = 0; i < cant; i++)
+    {
+        if(pend[i]!=NULL){
+            printf("===================\n");
+            printf("Tarea ID: %d\n", pend[i]->TareaId);
+            printf("Descripcion: %s\n", pend[i]->Descripcion);
+            printf("Duracion: %d\n", pend[i]->Duracion);
             printf("===================\n");
         }
     }
