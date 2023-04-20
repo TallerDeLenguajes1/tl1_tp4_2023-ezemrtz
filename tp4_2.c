@@ -12,12 +12,12 @@ void cargarTareas(Tarea **lista, int cant);
 void listadoRealizadas(Tarea **pen, Tarea **real, int cant);
 void mostrarRealizadas(Tarea ** real, int cant);
 void mostrarPendientes(Tarea ** pend, int cant);
-Tarea buscarTareaPorId(Tarea ** real, Tarea ** pen, int id);
-Tarea buscarTareaPorPalabra(Tarea ** real, Tarea ** pen, int id);
+Tarea buscarTareaPorId(Tarea ** real, Tarea ** pen, int cant);
+Tarea buscarTareaPorPalabra(Tarea ** real, Tarea ** pen, int cant);
 
 int main(){
     int cant;
-    Tarea **pendientes, **realizadas;
+    Tarea **pendientes, **realizadas, aux;
 
     //1.
     printf("Ingrese la cantidad de tareas a cargar: ");
@@ -33,6 +33,8 @@ int main(){
     cargarTareas(pendientes, cant);
     listadoRealizadas(pendientes, realizadas, cant);
     mostrarRealizadas(realizadas, cant);
+    aux = buscarTareaPorId(realizadas,pendientes,cant);
+    printf("Tarea: %s", aux.Descripcion);
 
     return 0;
 }
@@ -96,4 +98,36 @@ void mostrarPendientes(Tarea ** pend, int cant){
             printf("===================\n");
         }
     }
+}
+
+Tarea buscarTareaPorId(Tarea ** real, Tarea ** pen, int cant){
+    Tarea aux;
+    int id;
+    printf("Ingrese el ID de la tarea a buscar: ");
+    scanf("%d", &id);
+    for (int i = 0; i < cant; i++){
+        if(real[i] != NULL && real[i]->TareaId == id){
+            aux = *real[i];
+        }
+        if(pen[i] != NULL && pen[i]->TareaId == id){
+            aux = *pen[i];
+        }
+    }
+    return aux;
+}
+
+Tarea buscarTareaPorPalabra(Tarea ** real, Tarea ** pen, int cant){
+    Tarea aux;
+    char palabra[50];
+    printf("Ingrese la palabra que quiere buscar: ");
+    gets(palabra);
+    for (int i = 0; i < cant; i++){
+        if(strstr(real[i]->Descripcion, palabra) != NULL){
+            aux = *real[i];
+        }
+        if(strstr(pen[i]->Descripcion, palabra) != NULL){
+            aux = *pen[i];
+        }
+    }
+    return aux;
 }
