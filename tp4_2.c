@@ -34,6 +34,8 @@ int main(){
     listadoRealizadas(pendientes, realizadas, cant);
     mostrarRealizadas(realizadas, cant);
     aux = buscarTareaPorId(realizadas,pendientes,cant);
+    printf("Tarea: %s\n", aux.Descripcion);
+    aux = buscarTareaPorPalabra(realizadas,pendientes,cant);
     printf("Tarea: %s", aux.Descripcion);
 
     return 0;
@@ -120,12 +122,13 @@ Tarea buscarTareaPorPalabra(Tarea ** real, Tarea ** pen, int cant){
     Tarea aux;
     char palabra[50];
     printf("Ingrese la palabra que quiere buscar: ");
+    fflush(stdin);
     gets(palabra);
     for (int i = 0; i < cant; i++){
-        if(strstr(real[i]->Descripcion, palabra) != NULL){
+        if(real[i] != NULL && strstr(real[i]->Descripcion, palabra) != NULL){
             aux = *real[i];
         }
-        if(strstr(pen[i]->Descripcion, palabra) != NULL){
+        if(pen[i] != NULL && strstr(pen[i]->Descripcion, palabra) != NULL){
             aux = *pen[i];
         }
     }
