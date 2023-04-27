@@ -30,10 +30,10 @@ void InsertarNodo(Tnodo ** Start , Tarea valor);
 void InsertarAlFinal(Tnodo * Start, Tarea valor);
 Tnodo * buscarNodoId(Tnodo * Start, int IdBuscado);
 Tnodo * buscarNodoPalabra(Tnodo * PStart, Tnodo * RStart);
-void EliminarNodo(Tnodo ** Start, int dato);
+void EliminarNodo(Tnodo * nodo);
 void mostrar(Tnodo *Start);
 void mostrarNodo(Tnodo *nodo);
-
+Tnodo * QuitarNodo(Tnodo **Start, int dato);
 
 int main(){
     int respuesta, i=1, id;
@@ -185,27 +185,31 @@ Tnodo * buscarNodoPalabra(Tnodo * PStart, Tnodo * RStart){
     return aux;
 }
 
-void EliminarNodo(Tnodo ** Start, int id){
+void EliminarNodo(Tnodo * nodo){
+    free(nodo->valor.Descripcion);
+    free(nodo);
+}
+
+Tnodo * QuitarNodo(Tnodo **Start, int dato){
     Tnodo * Aux = *Start;
     Tnodo * AuxAnterior = *Start;
-    while (Aux && Aux->valor.TareaId != id){
+    while (Aux && Aux->valor.TareaId != dato){
         AuxAnterior = Aux;
         Aux = Aux->siguiente;
     }
     if(Aux){
         if(AuxAnterior == Aux){
             *Start = (*Start)->siguiente; 
-            free(Aux);
         }else{
             AuxAnterior -> siguiente = Aux -> siguiente;
-            free(Aux);
         }
     }
+    return Aux;
 }
 
 void listadoRealizadas(Tnodo ** pen, Tnodo ** real){
     int check;
-    Tnodo * aux = *pen, *auxAnt = *pen;
+    Tnodo * aux = *pen, *auxAnt = *pen, *nodo;
     printf("============= Listado de tareas realizadas =============\n");
     while(aux != NULL)
     {
@@ -217,10 +221,13 @@ void listadoRealizadas(Tnodo ** pen, Tnodo ** real){
         } while (check != 1 && check != 0);
         
         if(check){
-            InsertarNodo(real, aux->valor);
             auxAnt = aux;
             aux = aux->siguiente;
-            EliminarNodo(pen, auxAnt->valor.TareaId);
+            nodo = QuitarNodo(pen, auxAnt->valor.TareaId);
+            nodo->siguiente = *real;
+            *real = nodo;
+            /* InsertarNodo(real, aux->valor);
+            EliminarNodo(pen, auxAnt->valor.TareaId); */
         }else{
             auxAnt = aux;
             aux = aux->siguiente;
