@@ -144,6 +144,11 @@ Tnodo * CrearListaVacia(){
     return NULL;
 }
 
+void Insertar(Tnodo ** start, Tnodo * nodo){
+    nodo->siguiente = *start;
+    *start = nodo;
+}
+
 void InsertarNodo(Tnodo ** Start , Tarea valor){
     Tnodo * NuevoNodo = CrearNodo(valor);
     NuevoNodo -> siguiente = *Start;
@@ -224,10 +229,7 @@ void listadoRealizadas(Tnodo ** pen, Tnodo ** real){
             auxAnt = aux;
             aux = aux->siguiente;
             nodo = QuitarNodo(pen, auxAnt->valor.TareaId);
-            nodo->siguiente = *real;
-            *real = nodo;
-            /* InsertarNodo(real, aux->valor);
-            EliminarNodo(pen, auxAnt->valor.TareaId); */
+            Insertar(real, nodo);
         }else{
             auxAnt = aux;
             aux = aux->siguiente;
