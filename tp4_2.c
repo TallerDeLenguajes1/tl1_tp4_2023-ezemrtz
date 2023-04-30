@@ -26,6 +26,7 @@ void listadoRealizadas(Tnodo ** pen, Tnodo ** real);
 Tarea CrearTarea(int id);
 Tnodo * CrearNodo(Tarea valor);
 Tnodo * CrearListaVacia();
+void Insertar(Tnodo ** start, Tnodo * nodo);
 void InsertarNodo(Tnodo ** Start , Tarea valor);
 void InsertarAlFinal(Tnodo * Start, Tarea valor);
 Tnodo * buscarNodoId(Tnodo * Start, int IdBuscado);
