@@ -30,6 +30,8 @@ void mostrarLista(Tnodo *Start);
 void mostrarNodo(Tnodo *nodo);
 void MostrarDatos(Tnodo *Start);
 void MoverTarea(Tnodo **Pen, Tnodo **Real, Tnodo **Proc, Tnodo * Nodo);
+void LiberarMemoriaLista(Tnodo *Lista);
+
 
 int main(){
     int respuesta, i=1, id;
@@ -168,6 +170,10 @@ int main(){
     MostrarDatos(Realizadas);
     printf("---- Datos Tareas en Proceso ----\n");
     MostrarDatos(EnProceso);
+
+    LiberarMemoriaLista(Pendientes);
+    LiberarMemoriaLista(Realizadas);
+    LiberarMemoriaLista(EnProceso);
     
     return 0;
 }
@@ -360,5 +366,14 @@ void MoverTarea(Tnodo **Pen, Tnodo **Real, Tnodo **Proc, Tnodo * Nodo){
         break;
     default:
         break;
+    }
+}
+
+void LiberarMemoriaLista(Tnodo *Lista){
+    Tnodo * aux;
+    while(Lista != NULL){
+        aux = Lista;
+        Lista = Lista->siguiente;
+        EliminarNodo(aux);
     }
 }
